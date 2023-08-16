@@ -1,25 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from "react";
+
+import styles from "./App.module.scss";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [count, setCount] = useState(0);
+
+    return (
+        <div className="App">
+            <div class={styles.container}>
+                <div className={styles.text}>{count}</div>
+                <div className={styles.controls}>
+                    <div className={styles.subtract} onClick={(event) => setCount(count => count - 1)}>subtract</div>
+                    <div className={styles.reset} onClick={(event) => setCount(count => 0)}>reset</div>
+                    <div className={styles.add} onClick={(event) => setCount(count => count + 1)}>add</div>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default App;
