@@ -1,21 +1,41 @@
-import './App.css';
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { FaMinus, FaPlus, FaRedo } from "react-icons/fa";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import styles from "./App.module.scss";
 
 function App() {
     const [count, setCount] = useState(0);
 
+    useEffect(() => {
+        const reset = () => setCount(0);
+        window.addEventListener("counter-reset", reset);
+        return () => window.removeEventListener("counter-reset", reset);
+    }, []);
+
     return (
-        <div className="App">
-            <div class={styles.container}>
-                <div className={styles.text}>{count}</div>
-                <div className={styles.controls}>
-                    <div className={styles.subtract} onClick={(event) => setCount(count => count - 1)}>subtract</div>
-                    <div className={styles.reset} onClick={(event) => setCount(count => 0)}>reset</div>
-                    <div className={styles.add} onClick={(event) => setCount(count => count + 1)}>add</div>
-                </div>
-            </div>
+        <div className={styles.app}>
+            <Header />
+            <main className={styles.main}>
+                <section className={styles.counterCard} aria-labelledby="counter-title">
+                    <span className={styles.eyebrow}>React state example</span>
+                    <h1 id="counter-title">Counter App</h1>
+                    <p>Update a single value with predictable state changes.</p>
+                    <output className={styles.value} aria-live="polite">{count}</output>
+                    <div className={styles.controls}>
+                        <button type="button" className={styles.subtract} onClick={() => setCount((value) => value - 1)}>
+                            <FaMinus aria-hidden="true" /> Subtract
+                        </button>
+                        <button type="button" className={styles.reset} onClick={() => setCount(0)}>
+                            <FaRedo aria-hidden="true" /> Reset
+                        </button>
+                        <button type="button" className={styles.add} onClick={() => setCount((value) => value + 1)}>
+                            <FaPlus aria-hidden="true" /> Add
+                        </button>
+                    </div>
+                </section>
+            </main>
+            <Footer />
         </div>
     );
 }
