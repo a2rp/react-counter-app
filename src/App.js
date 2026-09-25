@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { FaMinus, FaPlus, FaRedo } from "react-icons/fa";
+import { FaArrowUp, FaMinus, FaPlus, FaRedo } from "react-icons/fa";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import styles from "./App.module.scss";
 
 function App() {
     const [count, setCount] = useState(0);
+    const [showGoTop, setShowGoTop] = useState(false);
 
     useEffect(() => {
         const reset = () => setCount(0);
@@ -13,6 +14,13 @@ function App() {
         return () => window.removeEventListener("counter-reset", reset);
     }, []);
 
+    useEffect(() => {
+        const handleScroll = () => setShowGoTop(window.scrollY > 420);
+
+        handleScroll();
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
     return (
         <div className={styles.app}>
             <Header />
@@ -35,6 +43,7 @@ function App() {
                     </div>
                 </section>
             </main>
+            {showGoTop && <button className={styles.goTopButton} type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Go to top" title="Go to top"><FaArrowUp /></button>}
             <Footer />
         </div>
     );

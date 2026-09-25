@@ -11,6 +11,7 @@ A small React counter with clear increment, decrement and reset controls in a re
 - Stable counter layout with accessible buttons
 - Icon-only social and support links in the footer
 - Responsive styling with simple hover feedback
+- Floating go-to-top control with smooth scrolling
 
 ## Tech stack
 
