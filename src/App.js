@@ -9,12 +9,6 @@ function App() {
     const [showGoTop, setShowGoTop] = useState(false);
 
     useEffect(() => {
-        const reset = () => setCount(0);
-        window.addEventListener("counter-reset", reset);
-        return () => window.removeEventListener("counter-reset", reset);
-    }, []);
-
-    useEffect(() => {
         const handleScroll = () => setShowGoTop(window.scrollY > 420);
 
         handleScroll();
@@ -23,7 +17,7 @@ function App() {
     }, []);
     return (
         <div className={styles.app}>
-            <Header />
+            <Header onReset={() => setCount(0)} />
             <main className={styles.main}>
                 <section className={styles.counterCard} aria-labelledby="counter-title">
                     <span className={styles.eyebrow}>React state example</span>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaBars, FaRedo, FaTimes } from "react-icons/fa";
 import styles from "./Header.module.scss";
 
-const Header = () => {
+const Header = ({ onReset }) => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
@@ -18,7 +18,10 @@ const Header = () => {
             </div>
             {menuOpen && (
                 <div className={styles.menu}>
-                    <button type="button" onClick={() => window.dispatchEvent(new Event("counter-reset"))}>
+                    <button type="button" onClick={() => {
+                        onReset();
+                        setMenuOpen(false);
+                    }}>
                         <FaRedo /> Reset counter
                     </button>
                 </div>
